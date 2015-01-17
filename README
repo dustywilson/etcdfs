@@ -10,16 +10,15 @@ in etcd, and therefore wouldn't belong in etcdfs.
 It works, but it only provides read-only access.  It also has 
 hardcoded metadata, such ACLs, ownership, timestamps, etc.
 
+## What Works ##
 
-What works:
-
-o Read access
-o Directory listings
-o File output from the etcd value
+* Read access
+* Directory listings
+* File output from the etcd value
 
 
-TODO:
+## TODO ##
 
-o Read/write access
-o Store metadata in etcd (ACL, timestamps, ownership, etc)
-o ...
+* Read/write access
+* Store metadata in etcd (ACL, timeotamps, ownership, etc)
+* ...
