@@ -10,6 +10,7 @@ in etcd, and therefore wouldn't belong in etcdfs.
 It works, but it only provides read-only access.  It also has 
 hardcoded metadata, such ACLs, ownership, timestamps, etc.
 
+
 ## What Works ##
 
 * Read access

@@ -77,7 +77,7 @@ func main() {
 	}
 }
 
-// FS implements the hello world file system.
+// FS implements file system
 type FS struct{}
 
 // Root of FS
@@ -85,7 +85,7 @@ func (FS) Root() (fs.Node, fuse.Error) {
 	return Dir{}, nil
 }
 
-// Dir implements both Node and Handle for the root directory.
+// Dir implements both Node and Handle for directory handling
 type Dir struct {
 	Name string
 	Dir  *Dir
@@ -103,7 +103,7 @@ func (d Dir) Attr() fuse.Attr {
 	}
 	mtime := time.Now().Add(time.Hour * 24 * 180 * -1)
 	attr := fuse.Attr{
-		Mode:  os.ModeDir | 0777, // FIXME: don't hardcode this.
+		Mode:  os.ModeDir | 0555, // FIXME: don't hardcode this.
 		Size:  0,                 // FIXME: what should this be?
 		Mtime: mtime,
 		Atime: mtime,
@@ -165,7 +165,7 @@ func (d Dir) ReadDir(intr fs.Intr) ([]fuse.Dirent, fuse.Error) {
 	return dirList, nil
 }
 
-// File implements both Node and Handle for the hello file.
+// File implements both Node and Handle for file handling
 type File struct {
 	Name string
 	Dir  *Dir
@@ -184,7 +184,7 @@ func (f File) Attr() fuse.Attr {
 	node := res.Node
 	mtime := time.Now() // FIXME: obviously not legit
 	attr := fuse.Attr{
-		Mode:  0666, // FIXME: don't hardcode this.
+		Mode:  0444, // FIXME: don't hardcode this.
 		Size:  uint64(len(node.Value)),
 		Mtime: mtime,
 		Atime: mtime,
