@@ -7,7 +7,7 @@ for anything except maybe keeping small config-related directories
 in sync between systems (by way of etcd).  Large files don't belong
 in etcd, and therefore wouldn't belong in etcdfs.
 
-It works, but it only provides read-only access.  It also has 
+It works, but it only provides read-only access.  It also has
 hardcoded metadata, such ACLs, ownership, timestamps, etc.
 
 
@@ -21,5 +21,5 @@ hardcoded metadata, such ACLs, ownership, timestamps, etc.
 ## TODO ##
 
 * Read/write access
-* Store metadata in etcd (ACL, timeotamps, ownership, etc)
+* Store metadata in etcd (ACL, timestamps, ownership, etc)
 * ...
