@@ -130,8 +130,8 @@ func (d Dir) Lookup(ctx context.Context, name string) (fs.Node, error) {
 	return File{Name: name, Dir: &d}, nil
 }
 
-// ReadDir of Dir
-func (d Dir) ReadDir(ctx context.Context) ([]fuse.Dirent, error) {
+// ReadDirAll of Dir
+func (d Dir) ReadDirAll(ctx context.Context) ([]fuse.Dirent, error) {
 	fmt.Printf("DIR READDIR: [%s]\n", d.Name)
 	res, err := etc.Get(filePath(&d, ""), true, true)
 	if err != nil {
