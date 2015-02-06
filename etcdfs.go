@@ -14,6 +14,7 @@ import (
 	"bazil.org/fuse"
 	"bazil.org/fuse/fs"
 	"github.com/coreos/go-etcd/etcd"
+	"golang.org/x/net/context"
 )
 
 var usage = func() {
@@ -81,7 +82,7 @@ func main() {
 type FS struct{}
 
 // Root of FS
-func (FS) Root() (fs.Node, fuse.Error) {
+func (FS) Root() (fs.Node, error) {
 	return Dir{}, nil
 }
 
@@ -114,7 +115,7 @@ func (d Dir) Attr() fuse.Attr {
 }
 
 // Lookup within Dir
-func (d Dir) Lookup(name string, intr fs.Intr) (fs.Node, fuse.Error) {
+func (d Dir) Lookup(ctx context.Context, name string) (fs.Node, error) {
 	fmt.Printf("DIR LOOKUP: [%s]\n", name)
 	res, err := etc.Get(filePath(&d, name), true, true)
 	if err != nil {
@@ -130,7 +131,7 @@ func (d Dir) Lookup(name string, intr fs.Intr) (fs.Node, fuse.Error) {
 }
 
 // ReadDir of Dir
-func (d Dir) ReadDir(intr fs.Intr) ([]fuse.Dirent, fuse.Error) {
+func (d Dir) ReadDir(ctx context.Context) ([]fuse.Dirent, error) {
 	fmt.Printf("DIR READDIR: [%s]\n", d.Name)
 	res, err := etc.Get(filePath(&d, ""), true, true)
 	if err != nil {
@@ -195,7 +196,7 @@ func (f File) Attr() fuse.Attr {
 }
 
 // ReadAll of File
-func (f File) ReadAll(intr fs.Intr) ([]byte, fuse.Error) {
+func (f File) ReadAll(ctx context.Context) ([]byte, error) {
 	fmt.Printf("READALL: [%s]\n", f.Name)
 	res, err := etc.Get(filePath(f.Dir, f.Name), true, true)
 	if err != nil {
